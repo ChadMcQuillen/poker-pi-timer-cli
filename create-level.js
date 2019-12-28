@@ -12,27 +12,29 @@ const AWSAppSyncClient = require( 'aws-appsync' ).default;
 const gql = require( 'graphql-tag' );
 const mutation = gql(`
 mutation CreateLevel($input: CreateLevelInput!) {
-    createLevel( input: $input) {
-        id
-        tournamentId
-        levelType
-        levelIndex
-        levelTime
-        smallBlind
-        bigBlind
-        ante
-    }
+  createLevel(input: $input) {
+    id
+    index
+    levelType
+    levelIndex
+    levelTime
+    smallBlind
+    bigBlind
+    ante
+    tournamentId
+  }
 }`);
 
 var argv = require('yargs')
     .string('tournamentId')
+    .number('index')
     .string('levelType')
     .number('levelIndex')
     .number('levelTime')
     .number('smallBlind')
     .number('bigBlind')
     .number('ante')
-    .demandOption(['tournamentId', 'levelType', 'levelIndex', 'levelTime', 'smallBlind', 'bigBlind', 'ante'])
+    .demandOption(['tournamentId', 'index', 'levelType', 'levelIndex', 'levelTime', 'smallBlind', 'bigBlind', 'ante'])
     .argv;
 
 const client = new AWSAppSyncClient( {
@@ -51,6 +53,7 @@ client.hydrated().then( function( client ) {
         variables: {
             input: {
                 tournamentId: argv.tournamentId,
+                index: argv.index,
                 levelType: argv.levelType,
                 levelIndex: argv.levelIndex,
                 levelTime: argv.levelTime,

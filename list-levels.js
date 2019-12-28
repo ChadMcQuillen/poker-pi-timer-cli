@@ -23,6 +23,7 @@ query QueryLevelsByTournamentIdIndex(
   ) {
     items {
       id
+      index
       levelType
       levelIndex
       levelTime

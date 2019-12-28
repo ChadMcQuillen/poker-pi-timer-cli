@@ -22,6 +22,7 @@ query ListTournaments {
       rebuyThroughLevel
       levelsAndBreaks {
         id
+        index
         levelType
         levelIndex
         levelTime
