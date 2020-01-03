@@ -20,6 +20,15 @@ const mutation = gql(
     numberOfPlayersRemaining
     numberOfRebuys
     currentLevelIndex
+    payout1
+    payout2
+    payout3
+    payout4
+    payout5
+    payout6
+    payout7
+    payout8
+    payout9
   }
 }
 ` );
@@ -31,6 +40,15 @@ var argv = require( 'yargs' )
     .number( 'numberOfPlayersRemaining' )
     .number( 'numberOfRebuys' )
     .number( 'currentLevelIndex' )
+    .number( 'payout1' )
+    .number( 'payout2' )
+    .number( 'payout3' )
+    .number( 'payout4' )
+    .number( 'payout5' )
+    .number( 'payout6' )
+    .number( 'payout7' )
+    .number( 'payout8' )
+    .number( 'payout9' )
     .demandOption( [ 'id' ] )
     .choices( 'state', [ 'pending', 'running', 'paused', 'done' ] )
     .argv;
@@ -45,32 +63,48 @@ const client = new AWSAppSyncClient( {
     disableOffline: true
 } );
 
-var variables = {
-    input: {
-        id: argv.id
-    }
+const constructInputFromArgs = ( {
+    id,
+    state,
+    numberOfEntrants,
+    numberOfPlayersRemaining,
+    numberOfRebuys,
+    currentLevelIndex,
+    payout1,
+    payout2,
+    payout3,
+    payout4,
+    payout5,
+    payout6,
+    payout7,
+    payout8,
+    payout9,
+    ...restOfObject } ) => {
+    return( {
+        input: {
+            id,
+            ...( state && { state } ),
+            ...( numberOfEntrants && { numberOfEntrants } ),
+            ...( numberOfPlayersRemaining && { numberOfPlayersRemaining } ),
+            ...( numberOfRebuys && { numberOfRebuys } ),
+            ...( currentLevelIndex && { currentLevelIndex } ),
+            ...( payout1 && { payout1 } ),
+            ...( payout2 && { payout2 } ),
+            ...( payout3 && { payout3 } ),
+            ...( payout4 && { payout4 } ),
+            ...( payout5 && { payout5 } ),
+            ...( payout6 && { payout6 } ),
+            ...( payout7 && { payout7 } ),
+            ...( payout8 && { payout8 } ),
+            ...( payout9 && { payout9 } )
+        }
+    } );
 };
-
-if ( argv.state !== undefined ) {
-    variables.input.state = argv.state;
-}
-if ( argv.numberOfEntrants !== undefined ) {
-    variables.input.numberOfEntrants = argv.numberOfEntrants;
-}
-if ( argv.numberOfPlayersRemaining !== undefined ) {
-    variables.input.numberOfPlayersRemaining = argv.numberOfPlayersRemaining;
-}
-if ( argv.numberOfRebuys !== undefined ) {
-    variables.input.numberOfRebuys = argv.numberOfRebuys;
-}
-if ( argv.currentLevelIndex !== undefined ) {
-    variables.input.currentLevelIndex = argv.currentLevelIndex;
-}
 
 client.hydrated().then( function( client ) {
     client.mutate( {
         mutation: mutation,
-        variables: variables
+        variables: constructInputFromArgs( argv )
     } )
         .then( result => {
             console.log( 'results of mutation: ', result );

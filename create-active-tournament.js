@@ -20,6 +20,15 @@ mutation CreateActiveTournament($input: CreateActiveTournamentInput!) {
     numberOfPlayersRemaining
     numberOfRebuys
     currentLevelIndex
+    payout1
+    payout2
+    payout3
+    payout4
+    payout5
+    payout6
+    payout7
+    payout8
+    payout9
   }
 }` );
 
@@ -30,13 +39,31 @@ var argv = require( 'yargs' )
     .number( 'numberOfPlayersRemaining' )
     .number( 'numberOfRebuys' )
     .number( 'currentLevelIndex' )
+    .number( 'payout1' )
+    .number( 'payout2' )
+    .number( 'payout3' )
+    .number( 'payout4' )
+    .number( 'payout5' )
+    .number( 'payout6' )
+    .number( 'payout7' )
+    .number( 'payout8' )
+    .number( 'payout9' )
+    .default( 'payout2', 0 )
+    .default( 'payout3', 0 )
+    .default( 'payout4', 0 )
+    .default( 'payout5', 0 )
+    .default( 'payout6', 0 )
+    .default( 'payout7', 0 )
+    .default( 'payout8', 0 )
+    .default( 'payout9', 0 )
     .demandOption( [
         'tournamentId',
         'state',
         'numberOfEntrants',
         'numberOfPlayersRemaining',
         'numberOfRebuys',
-        'currentLevelIndex'
+        'currentLevelIndex',
+        'payout1'
     ] )
     .choices( 'state', [ 'pending', 'running', 'paused', 'done' ] )
     .argv;
@@ -61,7 +88,16 @@ client.hydrated().then( function( client ) {
                 numberOfEntrants: argv.numberOfEntrants,
                 numberOfPlayersRemaining: argv.numberOfPlayersRemaining,
                 numberOfRebuys: argv.numberOfRebuys,
-                currentLevelIndex: argv.currentLevelIndex
+                currentLevelIndex: argv.currentLevelIndex,
+                payout1: argv.payout1,
+                payout2: argv.payout2,
+                payout3: argv.payout3,
+                payout4: argv.payout4,
+                payout5: argv.payout5,
+                payout6: argv.payout6,
+                payout7: argv.payout7,
+                payout8: argv.payout8,
+                payout9: argv.payout9,
     } } } )
         .then( result => {
             console.log( 'results of mutation: ', result );
