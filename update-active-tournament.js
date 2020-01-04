@@ -84,19 +84,19 @@ const constructInputFromArgs = ( {
         input: {
             id,
             ...( state && { state } ),
-            ...( numberOfEntrants && { numberOfEntrants } ),
-            ...( numberOfPlayersRemaining && { numberOfPlayersRemaining } ),
-            ...( numberOfRebuys && { numberOfRebuys } ),
-            ...( currentLevelIndex && { currentLevelIndex } ),
-            ...( payout1 && { payout1 } ),
-            ...( payout2 && { payout2 } ),
-            ...( payout3 && { payout3 } ),
-            ...( payout4 && { payout4 } ),
-            ...( payout5 && { payout5 } ),
-            ...( payout6 && { payout6 } ),
-            ...( payout7 && { payout7 } ),
-            ...( payout8 && { payout8 } ),
-            ...( payout9 && { payout9 } )
+            ...( ( numberOfEntrants || numberOfEntrants === 0 ) && { numberOfEntrants } ),
+            ...( ( numberOfPlayersRemaining || numberOfPlayersRemaining === 0 ) && { numberOfPlayersRemaining } ),
+            ...( ( numberOfRebuys || numberOfRebuys === 0 ) && { numberOfRebuys } ),
+            ...( ( currentLevelIndex || currentLevelIndex === 0 ) && { currentLevelIndex } ),
+            ...( ( payout1 || payout1 === 0 ) && { payout1 } ),
+            ...( ( payout2 || payout2 === 0 ) && { payout2 } ),
+            ...( ( payout3 || payout3 === 0 ) && { payout3 } ),
+            ...( ( payout4 || payout4 === 0 ) && { payout4 } ),
+            ...( ( payout5 || payout5 === 0 ) && { payout5 } ),
+            ...( ( payout6 || payout6 === 0 ) && { payout6 } ),
+            ...( ( payout7 || payout7 === 0 ) && { payout7 } ),
+            ...( ( payout8 || payout8 === 0 ) && { payout8 } ),
+            ...( ( payout9 || payout9 === 0 ) && { payout9 } )
         }
     } );
 };

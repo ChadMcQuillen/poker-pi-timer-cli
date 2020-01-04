@@ -69,7 +69,7 @@ const constructInputFromArgs = ( {
             ...( levelTime && { levelTime } ),
             ...( smallBlind && { smallBlind } ),
             ...( bigBlind && { bigBlind } ),
-            ...( ante && { ante } )
+            ...( ( ante || ante === 0 ) && { ante } )
         }
     } );
 };
